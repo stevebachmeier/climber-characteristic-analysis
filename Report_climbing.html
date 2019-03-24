@@ -13176,18 +13176,29 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>A large dataset scraped from the online rock climbing log www.8a.nu was analyzed using ordinary least squares regression to determine whether certain characteristics - specifically, a climbers height, weight, age, and years of experience - have a statistically significant influence on overall rock climbing ability. The dataset was cleaned and then organized to include the <em>maximum</em> climbing grade (on a scale from 0-) attained by each unique user.</p>
-<p>The final results table for the multivariate analysis is shown below. It was found that height and weight are highly correlated and so weight was dropped as a predictor. Further, the data was broken out into four different cases - two for gender and two for climbing type (bouldering and rope climbing).</p>
+<p>A large dataset scraped from the online rock climbing log www.8a.nu was analyzed using ordinary least squares regression to determine whether certain characteristics - specifically, a climbers height, weight, age, and years of experience - have a statistically significant influence on overall rock climbing ability. The dataset was cleaned and then organized to include the <em>maximum</em> climbing grade attained by each unique user on a scale of 0 to 82 (which corresponds to 0 to 9c+/10a in the commonly used Font rock climbing grade scale).</p>
+<p>It was found that height and weight are highly correlated and so weight was dropped as a predictor. Further, the data was broken out into four different cases - two for gender and two for climbing type (bouldering and rope climbing). A summary of the results is as follows:</p>
+<ul>
+<li><p><strong>Age is a statistically signficant predictor for all four cases and consistently shows a negative correlation with climbing ability.</strong></p>
+</li>
+<li><p><strong>Height is not a statistically significant predictor for females but is a negative predictor for males in both bouldering and rope climbing. That is, for a linear regression model, a male's climbing ability is negatively impacted by an increase in height.</strong></p>
+</li>
+<li><p><strong>Years of experience is a statistically significant predictor for all four cases and consistently shows a positive correlation with climbing ability.</strong></p>
+</li>
+</ul>
+<p>The final results table for the multivariate analysis is shown below.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_results</span><span class="p">[</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Coefficient&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Coefficient&#39;</span><span class="p">,</span> <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_results</span><span class="p">[</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Coefficient&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]</span>\
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Coefficient&#39;</span><span class="p">,</span><span class="s1">&#39;Gender&#39;</span><span class="p">])</span>\
+        <span class="p">[[</span><span class="s1">&#39;Coefficient&#39;</span><span class="p">,</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span><span class="s1">&#39;Type&#39;</span><span class="p">,</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span><span class="s1">&#39;Std_error&#39;</span><span class="p">,</span><span class="s1">&#39;P_value&#39;</span><span class="p">,</span><span class="s1">&#39;Statistically_significant&#39;</span><span class="p">]]</span>
 </pre></div>
 
     </div>
@@ -13200,7 +13211,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[19]:</div>
+    <div class="prompt output_prompt">Out[2]:</div>
 
 
 
@@ -13223,9 +13234,9 @@ div#notebook {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Type</th>
-      <th>Gender</th>
       <th>Coefficient</th>
+      <th>Gender</th>
+      <th>Type</th>
       <th>Value</th>
       <th>Std_error</th>
       <th>P_value</th>
@@ -13235,39 +13246,39 @@ div#notebook {
   <tbody>
     <tr>
       <th>2</th>
-      <td>Bouldering</td>
-      <td>F</td>
       <td>age</td>
+      <td>F</td>
+      <td>Bouldering</td>
       <td>-0.27</td>
       <td>0.03</td>
       <td>0.000</td>
       <td>Yes</td>
     </tr>
     <tr>
-      <th>6</th>
-      <td>Bouldering</td>
-      <td>M</td>
-      <td>age</td>
-      <td>-0.35</td>
-      <td>0.01</td>
-      <td>0.000</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
       <th>10</th>
-      <td>Rope</td>
-      <td>F</td>
       <td>age</td>
+      <td>F</td>
+      <td>Rope</td>
       <td>-0.23</td>
       <td>0.03</td>
       <td>0.000</td>
       <td>Yes</td>
     </tr>
     <tr>
-      <th>14</th>
-      <td>Rope</td>
-      <td>M</td>
+      <th>6</th>
       <td>age</td>
+      <td>M</td>
+      <td>Bouldering</td>
+      <td>-0.35</td>
+      <td>0.01</td>
+      <td>0.000</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>age</td>
+      <td>M</td>
+      <td>Rope</td>
       <td>-0.37</td>
       <td>0.01</td>
       <td>0.000</td>
@@ -13275,39 +13286,39 @@ div#notebook {
     </tr>
     <tr>
       <th>1</th>
-      <td>Bouldering</td>
-      <td>F</td>
       <td>height</td>
+      <td>F</td>
+      <td>Bouldering</td>
       <td>-0.05</td>
       <td>0.03</td>
       <td>0.059</td>
       <td>No</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>Bouldering</td>
-      <td>M</td>
-      <td>height</td>
-      <td>-0.04</td>
-      <td>0.01</td>
-      <td>0.000</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
       <th>9</th>
-      <td>Rope</td>
-      <td>F</td>
       <td>height</td>
+      <td>F</td>
+      <td>Rope</td>
       <td>-0.02</td>
       <td>0.03</td>
       <td>0.445</td>
       <td>No</td>
     </tr>
     <tr>
-      <th>13</th>
-      <td>Rope</td>
-      <td>M</td>
+      <th>5</th>
       <td>height</td>
+      <td>M</td>
+      <td>Bouldering</td>
+      <td>-0.04</td>
+      <td>0.01</td>
+      <td>0.000</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>height</td>
+      <td>M</td>
+      <td>Rope</td>
       <td>-0.07</td>
       <td>0.01</td>
       <td>0.000</td>
@@ -13315,39 +13326,39 @@ div#notebook {
     </tr>
     <tr>
       <th>3</th>
-      <td>Bouldering</td>
-      <td>F</td>
       <td>years_climbing</td>
+      <td>F</td>
+      <td>Bouldering</td>
       <td>0.98</td>
       <td>0.05</td>
       <td>0.000</td>
       <td>Yes</td>
     </tr>
     <tr>
-      <th>7</th>
-      <td>Bouldering</td>
-      <td>M</td>
-      <td>years_climbing</td>
-      <td>0.66</td>
-      <td>0.02</td>
-      <td>0.000</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
       <th>11</th>
-      <td>Rope</td>
-      <td>F</td>
       <td>years_climbing</td>
+      <td>F</td>
+      <td>Rope</td>
       <td>1.30</td>
       <td>0.04</td>
       <td>0.000</td>
       <td>Yes</td>
     </tr>
     <tr>
-      <th>15</th>
-      <td>Rope</td>
-      <td>M</td>
+      <th>7</th>
       <td>years_climbing</td>
+      <td>M</td>
+      <td>Bouldering</td>
+      <td>0.66</td>
+      <td>0.02</td>
+      <td>0.000</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>years_climbing</td>
+      <td>M</td>
+      <td>Rope</td>
       <td>0.91</td>
       <td>0.01</td>
       <td>0.000</td>
@@ -13367,12 +13378,6 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Height</strong></p>
-<p>Height is not a statistically significant predictor for females. Interestingly, it is a <em>negative</em> predictor for males for both bouldering and rope climbing. That is, for a linear regression model, a male's climbing ability is negatively impacted by an increase in height.</p>
-<p><strong>Age</strong></p>
-<p>Age is a statistically signficant predictor for all four cases and consistently shows a negative correlation with climbing ability.</p>
-<p><strong>Years of experience</strong></p>
-<p>On the other hand, years of experience - also a statistically significant predictor for climbing ability in all four cases - shows a positive correlation with climbing ability.</p>
 <hr>
 <p>Notes:</p>
 <ul>
@@ -13626,7 +13631,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_all</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -13642,7 +13647,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[20]:</div>
+    <div class="prompt output_prompt">Out[3]:</div>
 
 
 
@@ -13790,7 +13795,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_all</span><span class="p">[</span>
@@ -13811,7 +13816,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt output_prompt">Out[4]:</div>
 
 
 
@@ -14742,7 +14747,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ---- FILTER DATA ----</span>
@@ -14770,7 +14775,7 @@ Note this is somewhat different than the problems caused by confounding variable
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[9]:</div>
+    <div class="prompt output_prompt">Out[8]:</div>
 
 
 
@@ -14886,7 +14891,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ---- CORRELATION HEATMAP ----</span>
@@ -14935,7 +14940,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lm_all_filtered</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span>
@@ -14959,7 +14964,7 @@ Note this is somewhat different than the problems caused by confounding variable
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[12]:</div>
+    <div class="prompt output_prompt">Out[10]:</div>
 
 
 
@@ -15067,7 +15072,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_results</span>
@@ -15083,7 +15088,7 @@ Note this is somewhat different than the problems caused by confounding variable
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[13]:</div>
+    <div class="prompt output_prompt">Out[11]:</div>
 
 
 
@@ -15347,7 +15352,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_results</span><span class="p">[(</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;F&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Bouldering&#39;</span><span class="p">)]</span>
@@ -15363,7 +15368,7 @@ Note this is somewhat different than the problems caused by confounding variable
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[14]:</div>
+    <div class="prompt output_prompt">Out[12]:</div>
 
 
 
@@ -15472,7 +15477,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_results</span><span class="p">[(</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Bouldering&#39;</span><span class="p">)]</span>
@@ -15488,7 +15493,7 @@ Note this is somewhat different than the problems caused by confounding variable
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[15]:</div>
+    <div class="prompt output_prompt">Out[13]:</div>
 
 
 
@@ -15597,7 +15602,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_results</span><span class="p">[(</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;F&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Rope&#39;</span><span class="p">)]</span>
@@ -15613,7 +15618,7 @@ Note this is somewhat different than the problems caused by confounding variable
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[16]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
@@ -15722,7 +15727,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_results</span><span class="p">[(</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;M&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Rope&#39;</span><span class="p">)]</span>
@@ -15738,7 +15743,7 @@ Note this is somewhat different than the problems caused by confounding variable
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt output_prompt">Out[15]:</div>
 
 
 

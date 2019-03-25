@@ -13132,7 +13132,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#----------------------------------------------------------------</span>
@@ -13149,6 +13149,7 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">dill</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
 <span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="k">import</span> <span class="n">variance_inflation_factor</span> <span class="k">as</span> <span class="n">vif_</span>
@@ -13179,11 +13180,11 @@ div#notebook {
 <p>A large dataset scraped from the online rock climbing log www.8a.nu was analyzed using ordinary least squares regression to determine whether certain characteristics - specifically, a climbers height, weight, age, and years of experience - have a statistically significant influence on overall rock climbing ability. The dataset was cleaned and then organized to include the <em>maximum</em> climbing grade attained by each unique user on a scale of 0 to 82 (which corresponds to 0 to 9c+/10a in the commonly used Font rock climbing grade scale).</p>
 <p>It was found that height and weight are highly correlated and so weight was dropped as a predictor. Further, the data was broken out into four different cases - two for gender and two for climbing type (bouldering and rope climbing). A summary of the results is as follows:</p>
 <ul>
-<li><p><strong>Age is a statistically signficant predictor for all four cases and consistently shows a negative correlation with climbing ability.</strong></p>
+<li><p><strong>Age is a statistically signficant predictor for all four cases and consistently shows a negative correlation with climbing ability. That is, for a linear regression model, climbing ability is negatively impacted by age.</strong></p>
 </li>
-<li><p><strong>Height is not a statistically significant predictor for females but is a negative predictor for males in both bouldering and rope climbing. That is, for a linear regression model, a male's climbing ability is negatively impacted by an increase in height.</strong></p>
+<li><p><strong>Height is not a statistically significant predictor for females but is a negative predictor for males in both bouldering and rope climbing. That is, for a linear regression model, a male's climbing ability is negatively impacted by height.</strong></p>
 </li>
-<li><p><strong>Years of experience is a statistically significant predictor for all four cases and consistently shows a positive correlation with climbing ability.</strong></p>
+<li><p><strong>Years of experience is a statistically significant predictor for all four cases and consistently shows a positive correlation with climbing ability. That is, for a linear regression model, climbing ability is positively impacted by years of experience.</strong></p>
 </li>
 </ul>
 <p>The final results table for the multivariate analysis is shown below.</p>
@@ -13193,7 +13194,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_results</span><span class="p">[</span><span class="n">df_results</span><span class="p">[</span><span class="s1">&#39;Coefficient&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Intercept&#39;</span><span class="p">]</span>\
@@ -13211,7 +13212,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[2]:</div>
+    <div class="prompt output_prompt">Out[71]:</div>
 
 
 
@@ -13534,6 +13535,7 @@ div#notebook {
 </li>
 </ol>
 <hr>
+<p>Notes:</p>
 <p>$^{[a]}$ It should be noted that there is a fair amount of null values for the 'birth' feature in the users dataframe; 55.5% of people did not bother putting their birth date into the website. It was decided not to drop the column nor to impute the values; instead, the data is filtered ad hoc as necessary.</p>
 <p>$^{[b]}$ The 'sex' variable had three unique values. The vast majority were 0s and 1; four users had sex=255. As I highly doubt that the 8a.nu team has implemented non-binary gender assignment functionality into the website, those four users are simply dropped from the dataset.</p>
 <p>As for the 0s and 1s, it is found that 0s are on average heavier and taller than 1s. Further, there are significantly more 0s than 1s. As most climbers are male and males tend to be taller and heavier than females, the 'sex' category is renamed to 'is_female'.</p>
@@ -13562,7 +13564,7 @@ div#notebook {
 <li>'climb_type' to 'is_bouldering' $^{[a]}$</li>
 </ul>
 <hr>
-<p>Notes</p>
+<p>Notes:</p>
 <p>$^{[a]}$ The 'climb_type' variable is binary and consists of 0s and 1s. By comparing the specific climbs with the most 0s and the most 1s (ie the most popular climbs for each 'climb_type') to their descriptions on another popular online log (www.mountainproject.com), it became clear that 'climb_type' = 0 refers to rope climbs and 'climb_type' = 1 refers to bouldering problems. As such, the variable is renamed to 'is_bouldering' to reduce confusion.</p>
 <hr>
 
@@ -13975,12 +13977,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;whitegrid&quot;</span><span class="p">)</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df_all</span><span class="p">[</span>
     <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">120</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">240</span><span class="p">)</span> <span class="o">&amp;</span>
     <span class="p">(</span><span class="n">df_all</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> 
@@ -14066,7 +14066,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src='images/fig_scatter_grade_vs_height.png' style='width: 80%;'/></p>
+<p><img src='images/fig_scatter_grade_vs_height.png' style="width: 80%;"/></p>
 
 </div>
 </div>
@@ -14090,7 +14090,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src='images/fig_scatter_grade_vs_weight.png' style='width: 80%;'/></p>
+<p><img src='images/fig_scatter_grade_vs_weight.png' style="width: 80%;"/></p>
 
 </div>
 </div>
@@ -14114,7 +14114,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src='images/fig_scatter_grade_vs_age.png' style='width: 80%;'/></p>
+<p><img src='images/fig_scatter_grade_vs_age.png' style="width: 80%;"/></p>
 
 </div>
 </div>
@@ -14138,7 +14138,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src='images/fig_scatter_grade_vs_years_climbing.png' style='width: 80%;'/></p>
+<p><img src='images/fig_scatter_grade_vs_years_climbing.png' style="width: 80%;"/></p>
 
 </div>
 </div>
@@ -14418,7 +14418,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Although this is a strictly qualitative approach, it is a useful one. All four plots show a somewhat normal distribution around the center but then the markers drop off at both ends; this imiplies that the residuals are left-skewed. To check, the residual histograms are shown below.</p>
+<p>Although this is a strictly qualitative approach, it is a useful one. All four plots show a somewhat normal distribution around the center but then the markers drop off at both ends; this implies that the residuals are left-skewed. To check, the residual histograms are shown below.</p>
 
 </div>
 </div>
@@ -14737,8 +14737,8 @@ div#notebook {
 <p>It's not an uncommon phenomenon that seemingly different variables are strongly related to one another and including both in a model can lead to incorrect results. It's thus important to reduce the variables included in the model to only those that are not strongly correlated with one another. For the sake of this analysis the correlation threshold is 0.5.</p>
 <p>Another test for multicollinearity is the variable inflation factor (VIF). The threshold VIF for this analysis is 2.</p>
 <hr>
-<p>An aside:
-Note this is somewhat different than the problems caused by confounding variables which are variables not accounted for in the model that may be the true cause of an effect; they are one reason why it's always important to remember that correlation is not the same as causation. A fun example of confounding variables are the studies that show a correlation between the number of people drowning and ice cream sales. Could eating ice cream really cause a statistically significant increase in drownings? While the old wive's tale may blame it on the now-deceased ice cream eaters not waiting 30 minutes before going for a swim, in reality, the confounding variable - and the presumably <em>true</em> reason for the correlation - is nothing more than the outside temperature. As the temperature increases, so does the amount of ice cream consumed as well as the number of people who swim (and, consequently, drown).</p>
+<p>An aside:</p>
+<p>Note this is somewhat different than the problems caused by confounding variables which are variables not accounted for in the model that may be the true cause of an effect; they are one reason why it's always important to remember that correlation is not the same as causation. A fun example of confounding variables are the studies that show a correlation between the number of people drowning and ice cream sales. Could eating ice cream really cause a statistically significant increase in drownings? While the old wive's tale may blame it on the now-deceased ice cream eaters not waiting 30 minutes before going for a swim, in reality, the confounding variable - and the presumably <em>true</em> reason for the correlation - is nothing more than the outside temperature. As the temperature increases, so does the amount of ice cream consumed as well as the number of people who swim (and, consequently, drown).</p>
 <hr>
 <p>The correlation matrix and corresponding heatmap for the data at hand is shown below. Note that all variable filters have been set.</p>
 
@@ -15327,10 +15327,7 @@ Note this is somewhat different than the problems caused by confounding variable
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As mentioned above, possibly the biggest deviation from the ordinary least squares assumptions for quality is that the residuals do not seem to lie in a random scattering along the fitted values. There is apparently some real-life effect that is not being modeled appropriately, such as a missing variable or some interaction between variables. That being said, if we assume that the model's inadequacies do not drastically change the results obtained, then the following conclusions can be made.</p>
-<hr>
-<p>Note:</p>
-<p>The values for the coefficient intercept are not terribly useful in this model. The intercept is the value of the dependent variable ('index_grade') when all dependent variables ('height', 'age', and 'years_climbing') are zero. In this model, however, our filtered dataset does not allow heights or ages of zero - not to mention a height of zero is not even possible. As such, the intercept values are really only a product of the model itself but has no real-life meaning here.</p>
-<hr>
+<p>Note that the values for the coefficient intercept are not terribly useful in this model. The intercept is the value of the dependent variable ('index_grade') when all dependent variables ('height', 'age', and 'years_climbing') are zero. In this model, however, our filtered dataset does not allow heights or ages of zero - not to mention a height of zero is not even possible. As such, the intercept values are really only a product of the model itself but has no real-life meaning here.</p>
 
 </div>
 </div>
@@ -15463,7 +15460,7 @@ Note this is somewhat different than the problems caused by confounding variable
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="5.4.1-Males,-bouldering">5.4.1 Males, bouldering<a class="anchor-link" href="#5.4.1-Males,-bouldering">&#182;</a></h4>
+<h4 id="5.4.2-Males,-bouldering">5.4.2 Males, bouldering<a class="anchor-link" href="#5.4.2-Males,-bouldering">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -15588,7 +15585,7 @@ Note this is somewhat different than the problems caused by confounding variable
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="5.4.1-Females,-rope-climbing">5.4.1 Females, rope climbing<a class="anchor-link" href="#5.4.1-Females,-rope-climbing">&#182;</a></h4>
+<h4 id="5.4.3-Females,-rope-climbing">5.4.3 Females, rope climbing<a class="anchor-link" href="#5.4.3-Females,-rope-climbing">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -15713,7 +15710,7 @@ Note this is somewhat different than the problems caused by confounding variable
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="5.4.1-Males,-rope-climbing">5.4.1 Males, rope climbing<a class="anchor-link" href="#5.4.1-Males,-rope-climbing">&#182;</a></h4>
+<h4 id="5.4.4-Males,-rope-climbing">5.4.4 Males, rope climbing<a class="anchor-link" href="#5.4.4-Males,-rope-climbing">&#182;</a></h4>
 </div>
 </div>
 </div>
